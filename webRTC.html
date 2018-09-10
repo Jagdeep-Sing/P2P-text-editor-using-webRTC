@@ -41,14 +41,17 @@
                     connect(c);
                 });
             });
+
+            $('#inputText').keypress(function (e) {
+                console.log(e);
+                var ev = e || window.event;
+                var asciiKey = ev.keyCode || ev.which;
+                text = String.fromCharCode(asciiKey);
+                console.log(text, conn);
+                conn.send(text);
+            });
         });
-        $('inputText').keypress(function (e) {
-            var ev = e || window.event;
-            var asciiKey = ev.keyCode || ev.which;
-            text = String.fromCharCode(asciiKey);
-            console.log(text, conn);
-            conn.send(text);
-        });
+
     </script>
     <h2 style="margin-left: 30%;">Live Edit with webRTC</h2>
     Your peer id is: <span id="pid"></span><br><br> Connect to peer: <input type="text" id="rid" placeholder="Someone else's id">
@@ -59,7 +62,7 @@
         <div id="progBar" class="bar" style="width: 0%"></div>
     </div>
     <br>
-    <textarea id="inputtext" rows="30" style="width: 45%; margin-left:20%">
+    <textarea id="inputText" rows="30" style="width: 45%; margin-left:20%">
 </textarea>
 </body>
 
