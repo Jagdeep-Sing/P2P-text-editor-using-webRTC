@@ -18,12 +18,17 @@
         peer.on('open', function (id) {
             $('#pid').text(id);
         });
+
+        //CONNECT
         function connect(c) {
             conn = c;
             $('#rid').val(conn.peer);
             $('#rid').prop('disabled', true);
             $('#progbar').width('100%');
             document.getElementById('status').innerText = "Connected";
+            conn.on('data', function (data) {
+                $('#inputText').val($('#inputText').val() + data);
+            });
         }
         $(document).ready(function () {
             $('#connect').click(function () {
@@ -34,6 +39,12 @@
                     connect(c);
                 });
             });
+        });
+        $('inputText').keypress(function (e) {
+            var ev = e || window.event;
+            var asciiKey = ev.keyCode || ev.which;
+            text = String.fromCharCode(asciiKey);
+            conn.send(text);
         });
     </script>
     <h2 style="margin-left: 30%;">Live Edit with webRTC</h2>
