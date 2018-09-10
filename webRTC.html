@@ -1,1 +1,26 @@
-test
+<html lang="en">
+
+<head>
+    <title>Live Edit Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en-us">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h2 style="margin-left: 30%;">Live Edit with webRTC</h2>
+    Your peer id is: <span id="pid"></span><br><br> Connect to peer: <input type="text" id="rid" placeholder="Someone else's id">
+    <input type="button" value="Disconnect" id="disconnect">
+
+    <div class="progress progress-stripped active" style="width: 25%;">
+        <div id="progBar" class="bar" style="width: 0%"></div>
+    </div>
+    <textarea id="inputtext" rows="30" style="width: 45%; margin-left:20%">
+</textarea>
+</body>
+
+</html>
