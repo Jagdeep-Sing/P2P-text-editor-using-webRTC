@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Language" content="en-us">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,15 +18,33 @@
         peer.on('open', function (id) {
             $('#pid').text(id);
         });
+        function connect(c) {
+            conn = c;
+            $('#rid').val(conn.peer);
+            $('#rid').prop('disabled', true);
+            $('#progbar').width('100%');
+            document.getElementById('status').innerText = "Connected";
+        }
+        $(document).ready(function () {
+            $('#connect').click(function () {
+                console.log('connecting...');
+                $('progbar').width('50%');
+                var c = peer.connect($('#rid').val());
+                c.on('open', function () {
+                    connect(c);
+                });
+            });
+        });
     </script>
     <h2 style="margin-left: 30%;">Live Edit with webRTC</h2>
     Your peer id is: <span id="pid"></span><br><br> Connect to peer: <input type="text" id="rid" placeholder="Someone else's id">
     <input type="button" value="Connect" id="connect">
-    <input type="button" value="Disconnect" id="disconnect">
+    <input type="button" value="Disconnect" id="disconnect"><br><div id="status"></div>
 
     <div class="progress progress-stripped active" style="width: 25%;">
         <div id="progBar" class="bar" style="width: 0%"></div>
     </div>
+    <br>
     <textarea id="inputtext" rows="30" style="width: 45%; margin-left:20%">
 </textarea>
 </body>
