@@ -18,10 +18,11 @@
         peer.on('open', function (id) {
             $('#pid').text(id);
         });
-
+        peer.on('connection', connect);
         //CONNECT
         function connect(c) {
             conn = c;
+            console.log('in connect', conn.peer);
             $('#rid').val(conn.peer);
             $('#rid').prop('disabled', true);
             $('#progbar').width('100%');
@@ -36,6 +37,7 @@
                 $('progbar').width('50%');
                 var c = peer.connect($('#rid').val());
                 c.on('open', function () {
+                    console.log(c);
                     connect(c);
                 });
             });
@@ -44,6 +46,7 @@
             var ev = e || window.event;
             var asciiKey = ev.keyCode || ev.which;
             text = String.fromCharCode(asciiKey);
+            console.log(text, conn);
             conn.send(text);
         });
     </script>
